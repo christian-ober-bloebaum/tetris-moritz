@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+work/
+
+# Lokale Hinweise für die Betreuung
+/docs/Betreuung.md

@@ -1,0 +1,78 @@
+<Window x:Class="Tetris.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tetris · C#-Lernprojekt"
+        Width="800" Height="800" MinWidth="700" MinHeight="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#101827" Foreground="#E6EDF7"
+        FontFamily="Segoe UI" FontSize="15"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        Deactivated="Window_Deactivated">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="14,9" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="Background" Value="#D7F9F2" />
+            <Setter Property="Foreground" Value="#102E2B" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,0,0,20">
+            <TextBlock Text="TETRIS" FontSize="32" FontWeight="Bold" Foreground="#65E1CE" />
+            <TextBlock Text="Dein erstes C#-Spiel" Foreground="#AABAD0" />
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition Width="250" />
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Stretch="Uniform" HorizontalAlignment="Center">
+                <Border Background="#0A111E" BorderBrush="#35455F"
+                        BorderThickness="2" Padding="6" CornerRadius="6">
+                    <UniformGrid x:Name="BoardPanel" />
+                </Border>
+            </Viewbox>
+
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="0,0,8,0">
+                    <TextBlock Text="SPIELTAKT" FontWeight="Bold" Foreground="#AABAD0" Margin="0,0,0,12" />
+                    <Button x:Name="StartPauseButton" Content="Start" Click="StartPauseButton_Click" />
+                    <Button Content="Neu starten · R" Click="ResetButton_Click" />
+                    <Button x:Name="StepButton" Content="Einzelschritt" Click="StepButton_Click" />
+
+                    <TextBlock Text="STEUERUNG" FontWeight="Bold" Foreground="#AABAD0" Margin="0,20,0,10" />
+                    <TextBlock Text="← / →   Stein bewegen&#x0a;↓           Schneller fallen&#x0a;↑           Stein drehen&#x0a;Leertaste   Start / Pause&#x0a;R           Zurücksetzen" LineHeight="24" />
+
+                    <TextBlock Text="BEOBACHTEN" FontWeight="Bold" Foreground="#AABAD0" Margin="0,22,0,10" />
+                    <TextBlock x:Name="TickText" Text="Spieltakte: 0" />
+                    <TextBlock x:Name="LinesText" Text="Entfernte Reihen: 0" Margin="0,5,0,0" />
+                    <TextBlock x:Name="InputText" Text="Letzte Eingabe: –" Margin="0,5,0,0" />
+
+                    <Border Background="#1B2638" CornerRadius="6" Padding="12" Margin="0,22,0,0">
+                        <TextBlock FontSize="13" Foreground="#B9C9DF"
+                                   Text="Lernstand: Grundgerüst. Der Stein bewegt sich erst, wenn du die Aufgaben in Game.cs umsetzt." />
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <TextBlock x:Name="StatusText" Grid.Row="2" Margin="0,18,0,0"
+                   Foreground="#65E1CE" Text="Bereit. Starte den Spieltakt oder probiere einen Einzelschritt." />
+    </Grid>
+</Window>
