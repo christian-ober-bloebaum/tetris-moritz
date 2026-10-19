@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net.NetworkInformation;
 using System.Windows.Input;
 
@@ -53,7 +54,7 @@ namespace Tetris
         public bool TryMove(int columnChange, int rowChange)
 
         {
-        
+            
           
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
             // Ändere die Position nur bei einem erlaubten Zug und liefere dann true.
@@ -65,12 +66,20 @@ namespace Tetris
         public bool CanPlacePiece(int[,] piece, int targetRow, int targetColumn)
         {
             for(targetRow = 0 ; targetRow < piece.GetLength(0);)
-                {
-                for (targetColumn = 0; targetColumn < piece.GetLength(1);) ;
+            { if (targetRow != 0)
+                    return false;
+                else
+                    return true;
+            }            
 
-                }            
+            for (targetColumn = 0; targetColumn < piece.GetLength(1);) ;
+            {  if (targetColumn != 0)
+                    return false;
+                else
+                    return true;
+                        }
 
-            
+
             // TODO 1: Prüfe jede belegte Zelle der Steinmatrix.
             // Die Zielzelle muss im Spielfeld liegen; leere Matrixzellen zählen nicht.
             // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
