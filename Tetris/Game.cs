@@ -58,7 +58,7 @@ namespace Tetris
             int targetrow = ActiveRow + rowChange;
             int targetcol = ActiveColumn + columnChange;
 
-            if (CanPlacePiece(ActivePiece, targetrow, targetcol)  == true)
+            if (CanPlacePiece(ActivePiece, targetrow, targetcol))
                     {
                         ActiveRow = targetrow;
                         ActiveColumn = targetcol;
@@ -108,9 +108,11 @@ namespace Tetris
 
         public void Tick()
         {
-            TryMove(0, 1);
-        
             // Ein Tick entspricht genau einem Schritt des Spiels.
+            if (TryMove(0, 1))
+                return;
+            LockPiece();
+           
             // TODO 2: Versuche, den Stein um eine Zeile nach unten zu bewegen.
             // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
             // TODO 6: Nach Game Over darf sich der Spielzustand nicht mehr ändern.
@@ -118,6 +120,7 @@ namespace Tetris
 
         public void LockPiece()
         {
+
             // TODO 3: Übertrage belegte Zellen des aktiven Steins nach Board.
         }
 
