@@ -1,3 +1,6 @@
+using System.Net.NetworkInformation;
+using System.Windows.Input;
+
 namespace Tetris
 {
     // Hier entsteht das Spiel. Diese Klasse kennt weder Fenster noch Farben oder Tasten.
@@ -48,15 +51,26 @@ namespace Tetris
         }
 
         public bool TryMove(int columnChange, int rowChange)
+
         {
+         
+          
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
             // Ändere die Position nur bei einem erlaubten Zug und liefere dann true.
             // Bei einem ungültigen Zug bleiben Position und Spielfeld unverändert.
+
             return false;
         }
 
         public bool CanPlacePiece(int[,] piece, int targetRow, int targetColumn)
         {
+            for(int ActivePiece = 0 ; ActivePiece < piece.GetLength(0);)
+                {
+                for (ActivePiece = 0; ActivePiece < piece.GetLength(1);) ;
+
+                }            
+
+            
             // TODO 1: Prüfe jede belegte Zelle der Steinmatrix.
             // Die Zielzelle muss im Spielfeld liegen; leere Matrixzellen zählen nicht.
             // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
