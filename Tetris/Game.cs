@@ -52,10 +52,12 @@ namespace Tetris
         }
 
         public bool TryMove(int columnChange, int rowChange)
-
         {
-            
           
+
+                
+
+
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
             // Ändere die Position nur bei einem erlaubten Zug und liefere dann true.
             // Bei einem ungültigen Zug bleiben Position und Spielfeld unverändert.
@@ -65,27 +67,32 @@ namespace Tetris
 
         public bool CanPlacePiece(int[,] piece, int targetRow, int targetColumn)
         {
-            for(targetRow = 0 ; targetRow < piece.GetLength(0);)
-            { if (targetRow != 0)
-                    return false;
-                else
-                    return true;
-            }            
 
-            for (targetColumn = 0; targetColumn < piece.GetLength(1);) ;
-            {  if (targetColumn != 0)
-                    return false;
-                else
-                    return true;
+            for (int i = 0; i < piece.GetLength(0); targetRow++)
+            {
+
+                for (int j = 0; j < piece.GetLength(1); targetColumn++)
+                {
+                    if (piece[i, j] != 0)
+                    {
+                        int currentBoardRow = targetRow + i;
+                        int currentBoardCol = targetColumn + j;
+
+                        if (currentBoardRow < 0 || currentBoardRow >= 20 || currentBoardCol < 0 || currentBoardCol >= 10)
+                        {
+                            return false;
                         }
 
+                    }
+                }
 
+            }
             // TODO 1: Prüfe jede belegte Zelle der Steinmatrix.
             // Die Zielzelle muss im Spielfeld liegen; leere Matrixzellen zählen nicht.
             // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
             // Prüfe die Grenzen, BEVOR du auf Board zugreifst.
-            return false;
-        }
+            return true;
+        } 
 
         public void Tick()
         {
