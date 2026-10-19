@@ -37,8 +37,8 @@ namespace Tetris
             // Ein Quadrat ist der erste Übungsstein. Weitere Formen folgen später.
             ActivePiece = new int[,]
             {
-                { 1, 1 },
-                { 1, 1 }
+                { 3, 3 },
+                { 3, 3 }
             };
 
             ActiveRow = 0;
