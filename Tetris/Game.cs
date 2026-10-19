@@ -53,7 +53,7 @@ namespace Tetris
         public bool TryMove(int columnChange, int rowChange)
 
         {
-         
+        
           
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
             // Ändere die Position nur bei einem erlaubten Zug und liefere dann true.
@@ -64,9 +64,9 @@ namespace Tetris
 
         public bool CanPlacePiece(int[,] piece, int targetRow, int targetColumn)
         {
-            for(int ActivePiece = 0 ; ActivePiece < piece.GetLength(0);)
+            for(targetRow = 0 ; targetRow < piece.GetLength(0);)
                 {
-                for (ActivePiece = 0; ActivePiece < piece.GetLength(1);) ;
+                for (targetColumn = 0; targetColumn < piece.GetLength(1);) ;
 
                 }            
 
