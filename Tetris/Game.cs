@@ -80,10 +80,10 @@ namespace Tetris
         public bool CanPlacePiece(int[,] piece, int targetRow, int targetColumn)
         {
 
-            for (int i = 0; i < piece.GetLength(0); targetRow++)
+            for (int i = 0; i < piece.GetLength(0); i++)
             {
 
-                for (int j = 0; j < piece.GetLength(1); targetColumn++)
+                for (int j = 0; j < piece.GetLength(1); j++)
                 {
                     if (piece[i, j] != 0)
                     {
@@ -108,7 +108,8 @@ namespace Tetris
 
         public void Tick()
         {
-            
+            TryMove(0, 1);
+        
             // Ein Tick entspricht genau einem Schritt des Spiels.
             // TODO 2: Versuche, den Stein um eine Zeile nach unten zu bewegen.
             // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
