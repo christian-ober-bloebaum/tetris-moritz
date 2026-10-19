@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Eventing.Reader;
 using System.Net.NetworkInformation;
+using System.Threading;
 using System.Windows.Input;
 
 namespace Tetris
@@ -53,10 +55,20 @@ namespace Tetris
 
         public bool TryMove(int columnChange, int rowChange)
         {
-          
+            int targetrow = ActiveRow + rowChange;
+            int targetcol = ActiveColumn + columnChange;
 
-                
+            if (CanPlacePiece(ActivePiece, targetrow, targetcol)  == true)
+                    {
+                        ActiveRow = targetrow;
+                        ActiveColumn = targetcol;
 
+                        return true;
+
+
+
+
+                    }
 
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
             // Ändere die Position nur bei einem erlaubten Zug und liefere dann true.
@@ -78,7 +90,7 @@ namespace Tetris
                         int currentBoardRow = targetRow + i;
                         int currentBoardCol = targetColumn + j;
 
-                        if (currentBoardRow < 0 || currentBoardRow >= 20 || currentBoardCol < 0 || currentBoardCol >= 10)
+                        if (currentBoardRow < 0 || currentBoardRow >= Rows || currentBoardCol < 0 || currentBoardCol >= Columns)
                         {
                             return false;
                         }
@@ -96,6 +108,7 @@ namespace Tetris
 
         public void Tick()
         {
+            
             // Ein Tick entspricht genau einem Schritt des Spiels.
             // TODO 2: Versuche, den Stein um eine Zeile nach unten zu bewegen.
             // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
