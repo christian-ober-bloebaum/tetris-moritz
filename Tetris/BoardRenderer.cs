@@ -77,6 +77,12 @@ namespace Tetris
                 case 5: return Brushes.CornflowerBlue;
                 case 6: return Brushes.LightGreen;
                 case 7: return Brushes.HotPink;
+                case 8: return Brushes.Crimson;       // Ein kräftiges Dunkelrot
+                case 9: return Brushes.DarkOrange;    // Ein sattes Orange
+                case 10: return Brushes.Teal;         // Ein dunkles Blaugrün
+                case 11: return Brushes.Orchid;       // Ein schöner Lilaton
+                case 12: return Brushes.DeepSkyBlue;  // Ein leuchtendes Hellblau
+                case 13: return Brushes.LimeGreen;    // Ein knalliges Apfelgrün               
                 default: return emptyCellBrush;
             }
         }

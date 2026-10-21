@@ -128,7 +128,7 @@ namespace Tetris
             {
                 return;
             }
-
+            
             e.Handled = true;
             InputText.Text = "Letzte Eingabe: " + e.Key;
 
