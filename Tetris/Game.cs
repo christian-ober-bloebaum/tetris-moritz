@@ -36,6 +36,8 @@ namespace Tetris
             LinesCleared = 0;
             IsGameOver = false;
             SpawnPiece();
+
+            
         }
 
         public void SpawnPiece()
@@ -43,8 +45,8 @@ namespace Tetris
             // Ein Quadrat ist der erste Übungsstein. Weitere Formen folgen später.
             ActivePiece = new int[,]
             {
-                { 3, 3 },
-                { 3, 3 }
+                { 3, 3 ,3},
+                { 3, 3 ,3}
             };
 
             ActiveRow = 0;
@@ -85,24 +87,35 @@ namespace Tetris
 
                 for (int j = 0; j < piece.GetLength(1); j++)
                 {
-                    if (piece[i, j] != 0)
-                    {
-                        int currentBoardRow = targetRow + i;
-                        int currentBoardCol = targetColumn + j;
+                    // TODO 1: Prüfe jede belegte Zelle der Steinmatrix.    
 
-                        if (currentBoardRow < 0 || currentBoardRow >= Rows || currentBoardCol < 0 || currentBoardCol >= Columns)
-                        {
-                            return false;
-                        }
+                    //leere Matrixzellen zählen nicht.
+                    if (piece[i, j] == 0)
+                    {
+                        continue;
+                    }
+                    int currentBoardRow = targetRow + i;
+                    int currentBoardCol = targetColumn + j;
+                    // Die Zielzelle muss im Spielfeld liegen; 
+                    if (currentBoardRow < 0 || currentBoardRow >= Rows || currentBoardCol < 0 || currentBoardCol >= Columns)
+                    {
+
+                        return false;
+                    }
+                    // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
+                    // Prüfe die Grenzen, BEVOR du auf Board zugreifst.
+                    if (Board[currentBoardRow, currentBoardCol] > 0)
+                    {
+                        return false;
+
 
                     }
+
                 }
 
             }
-            // TODO 1: Prüfe jede belegte Zelle der Steinmatrix.
-            // Die Zielzelle muss im Spielfeld liegen; leere Matrixzellen zählen nicht.
-            // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
-            // Prüfe die Grenzen, BEVOR du auf Board zugreifst.
+
+
             return true;
         } 
 
@@ -142,6 +155,7 @@ namespace Tetris
 
         public void RotatePiece()
         {
+
             // TODO 4: Erzeuge eine um 90 Grad gedrehte Matrix.
             // Übernimm sie nur, wenn CanPlacePiece die gedrehte Form erlaubt.
             // Ein Quadrat darf bei dieser einfachen Variante unverändert bleiben.
