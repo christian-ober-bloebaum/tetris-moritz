@@ -68,7 +68,7 @@ namespace Tetris
                 { 5, 5, 5, 5},
             },
 
-            },
+            
         };
         private Random random = new Random();
 
