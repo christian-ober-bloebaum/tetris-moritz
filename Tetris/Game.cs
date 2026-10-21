@@ -5,6 +5,8 @@ using System.Threading;
 using System.Windows.Input;
 using System.Linq;
 using System.Windows.Controls;
+using System;
+using System.Collections.Generic;
 
 namespace Tetris
 {
@@ -27,6 +29,28 @@ namespace Tetris
         public int LinesCleared { get; private set; }
         public bool IsGameOver { get; private set; }
 
+        private List<int[,]> KnownPieces = new List<int[,]>
+        {
+            new int[,]
+            {
+                { 0, 3, 0},
+                { 3, 3, 3},
+            },
+            new int[,]
+            {
+                { 2, 2},
+                { 2, 2},
+            },
+                        new int[,]
+            {
+                { 2, 2, 0},
+                { 2, 2, 0},
+            },
+
+
+        };
+        private Random random = new Random();
+
         public Game()
         {
             Reset();
@@ -42,39 +66,18 @@ namespace Tetris
         public void SpawnPiece()
         {
             // Ein Quadrat ist der erste Übungsstein. Weitere Formen folgen später.
-            ActivePiece = new int[,]
-            {
-      
-                { 0, 3, 0},
-                { 3, 3, 3},
 
-            }; 
-            
 
+            int randomIndex = random.Next(KnownPieces.Count);  
+            ActivePiece = KnownPieces[randomIndex];
             ActiveRow = 0;
             ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
 
             if (!CanPlacePiece(ActivePiece, ActiveRow, ActiveColumn))
-            { IsGameOver = true; 
-            
-            
-            
+            { 
+                IsGameOver = true; 
             }
 
-
-
-
-            
-
-
-            
-
-
-
-
-
-                
-                    
             
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
