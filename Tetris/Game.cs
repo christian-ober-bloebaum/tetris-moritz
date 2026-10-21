@@ -109,18 +109,34 @@ namespace Tetris
         public void Tick()
         {
             // Ein Tick entspricht genau einem Schritt des Spiels.
+            // TODO 2: Versuche, den Stein um eine Zeile nach unten zu bewegen.
             if (TryMove(0, 1))
                 return;
             LockPiece();
            
-            // TODO 2: Versuche, den Stein um eine Zeile nach unten zu bewegen.
+
             // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
             // TODO 6: Nach Game Over darf sich der Spielzustand nicht mehr ändern.
         }
 
         public void LockPiece()
         {
+            for (int i = 0; i < ActivePiece.GetLength(0); i++)
+            {
+                for (int j = 0; j < ActivePiece.GetLength(1); j++)
+                {
+                    if (ActivePiece[i, j] != 0)
+                    {
+                        int currentRow = ActiveRow + i;
+                        int currentCol = ActiveColumn + j;
 
+                        Board[currentRow,currentCol] = ActivePiece[i, j];
+
+                    }
+
+                }
+
+            }
             // TODO 3: Übertrage belegte Zellen des aktiven Steins nach Board.
         }
 
