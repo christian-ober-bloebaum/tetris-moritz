@@ -3,6 +3,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Windows.Input;
+using System.Linq;
 
 namespace Tetris
 {
@@ -36,22 +37,26 @@ namespace Tetris
             LinesCleared = 0;
             IsGameOver = false;
             SpawnPiece();
-
-            
         }
-
         public void SpawnPiece()
         {
             // Ein Quadrat ist der erste Übungsstein. Weitere Formen folgen später.
             ActivePiece = new int[,]
             {
-                { 3, 3 ,3},
-                { 3, 3 ,3}
-            };
+      
+                { 0, 3, 0},
+                { 3, 3, 3},
+
+            }; 
+            
 
             ActiveRow = 0;
             ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
 
+            {
+            
+                    
+            }
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
 
@@ -110,6 +115,7 @@ namespace Tetris
 
 
                     }
+                    
 
                 }
 
@@ -145,21 +151,46 @@ namespace Tetris
 
                         Board[currentRow,currentCol] = ActivePiece[i, j];
                         
+                            
+                        
                     }
-
+                   
                 }
 
             }
             // TODO 3: Übertrage belegte Zellen des aktiven Steins nach Board.
         }
 
+
         public void RotatePiece()
         {
+            int rows = ActivePiece.GetLength(0);
+            int cols = ActivePiece.GetLength(1);
+
+            // Neue Matrix für den gedrehten Stein erstellen
+            int[,] rotatedPiece = new int[cols, rows];
+
+            // Matrix drehen
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    rotatedPiece[j, rows - 1 - i] = ActivePiece[i, j];
+                }
+            }
+
+            // Erst jetzt die vollständige Matrix überprüfen
+            if (CanPlacePiece(rotatedPiece, ActiveRow, ActiveColumn))
+            {
+                ActivePiece = rotatedPiece;
+            }
+        }
+
 
             // TODO 4: Erzeuge eine um 90 Grad gedrehte Matrix.
             // Übernimm sie nur, wenn CanPlacePiece die gedrehte Form erlaubt.
             // Ein Quadrat darf bei dieser einfachen Variante unverändert bleiben.
-        }
+        
 
         public void ClearFullRows()
         {
