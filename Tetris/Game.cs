@@ -113,7 +113,7 @@ namespace Tetris
             if (TryMove(0, 1))
                 return;
             LockPiece();
-           
+            SpawnPiece();
 
             // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
             // TODO 6: Nach Game Over darf sich der Spielzustand nicht mehr ändern.
@@ -131,7 +131,7 @@ namespace Tetris
                         int currentCol = ActiveColumn + j;
 
                         Board[currentRow,currentCol] = ActivePiece[i, j];
-
+                        
                     }
 
                 }
