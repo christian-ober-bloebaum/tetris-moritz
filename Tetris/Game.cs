@@ -43,8 +43,8 @@ namespace Tetris
             },
                         new int[,]
             {
-                { 7, 7, 0},
-                { 0, 7, 7},
+                { 6, 6, 0},
+                { 0, 6, 6},
             },
 
                         new int[,]
@@ -54,13 +54,13 @@ namespace Tetris
             },
                         new int[,]
             {
-                { 9, 0, 0},
-                { 9, 9, 9},
+                { 12, 0, 0},
+                { 12, 12, 12},
             },
                         new int[,]
             {
-                { 0, 0, 12},
-                { 12, 12, 12},
+                { 0, 0, 9},
+                { 9, 9, 9},
             },
                         new int[,]
             {
@@ -176,6 +176,7 @@ namespace Tetris
             if (TryMove(0, 1))
                 return;
             LockPiece();
+            
             SpawnPiece();
 
             // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
