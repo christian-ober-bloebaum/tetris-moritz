@@ -4,6 +4,7 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using System.Windows.Input;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Tetris
 {
@@ -53,10 +54,28 @@ namespace Tetris
             ActiveRow = 0;
             ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
 
-            {
+            if (!CanPlacePiece(ActivePiece, ActiveRow, ActiveColumn))
+            { IsGameOver = true; 
             
-                    
+            
+            
             }
+
+
+
+
+            
+
+
+            
+
+
+
+
+
+                
+                    
+            
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
 
@@ -105,6 +124,7 @@ namespace Tetris
                     if (currentBoardRow < 0 || currentBoardRow >= Rows || currentBoardCol < 0 || currentBoardCol >= Columns)
                     {
 
+
                         return false;
                     }
                     // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
@@ -112,10 +132,10 @@ namespace Tetris
                     if (Board[currentBoardRow, currentBoardCol] > 0)
                     {
                         return false;
-
-
-                    }
                     
+                    }
+
+
 
                 }
 
