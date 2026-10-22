@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging.Effects;
 
 namespace Tetris
 {
@@ -96,20 +97,22 @@ namespace Tetris
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
         public void droppiece()
+
         {
-            for (int i = 0; i < Rows; i++)
-
-            {
-                for (int j = 0; j < Columns; j++)
-                {
 
 
 
-                }
 
-
-            }
         }
+
+                    
+
+
+                
+
+
+            
+        
         public bool TryMove(int columnChange, int rowChange)
         {
             int targetrow = ActiveRow + rowChange;
