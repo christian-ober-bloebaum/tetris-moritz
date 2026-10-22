@@ -57,7 +57,7 @@
                     <Button x:Name="StepButton" Content="Einzelschritt" Click="StepButton_Click" />
 
                     <TextBlock Text="STEUERUNG" FontWeight="Bold" Foreground="#AABAD0" Margin="0,20,0,10" />
-                    <TextBlock Text="← / →   Stein bewegen&#x0a;↓           Schneller fallen&#x0a;↑           Stein drehen&#x0a;Leertaste   Start / Pause&#x0a;R           Zurücksetzen" LineHeight="24" />
+                    <TextBlock Text="← / →   Stein bewegen&#x0a;    ↓           Eine Zeile runter&#x0a;Leertaste           Ganz fallen lassen&#x0a;↑                        Stein drehen&#x0a;E   Start / Pause&#x0a;R           Zurücksetzen" LineHeight="24" />
 
                     <TextBlock Text="BEOBACHTEN" FontWeight="Bold" Foreground="#AABAD0" Margin="0,22,0,10" />
                     <TextBlock x:Name="TickText" Text="Spieltakte: 0" />
