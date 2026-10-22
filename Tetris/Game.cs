@@ -57,11 +57,11 @@ namespace Tetris
             },
                         new int[,]
             {
-                
+
                 { 5, 5, 5, 5},
             },
 
-            
+
         };
         private Random random = new Random();
 
@@ -82,17 +82,17 @@ namespace Tetris
             // Ein Quadrat ist der erste Übungsstein. Weitere Formen folgen später.
 
 
-            int randomIndex = random.Next(KnownPieces.Count);  
+            int randomIndex = random.Next(KnownPieces.Count);
             ActivePiece = KnownPieces[randomIndex];
             ActiveRow = 0;
             ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
 
             if (!CanPlacePiece(ActivePiece, ActiveRow, ActiveColumn))
-            { 
-                IsGameOver = true; 
+            {
+                IsGameOver = true;
             }
 
-            
+
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
 
@@ -102,16 +102,16 @@ namespace Tetris
             int targetcol = ActiveColumn + columnChange;
 
             if (CanPlacePiece(ActivePiece, targetrow, targetcol))
-                    {
-                        ActiveRow = targetrow;
-                        ActiveColumn = targetcol;
+            {
+                ActiveRow = targetrow;
+                ActiveColumn = targetcol;
 
-                        return true;
-
-
+                return true;
 
 
-                    }
+
+
+            }
 
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
             // Ändere die Position nur bei einem erlaubten Zug und liefere dann true.
@@ -149,7 +149,7 @@ namespace Tetris
                     if (Board[currentBoardRow, currentBoardCol] > 0)
                     {
                         return false;
-                    
+
                     }
 
 
@@ -160,7 +160,7 @@ namespace Tetris
 
 
             return true;
-        } 
+        }
 
         public void Tick()
         {
@@ -187,12 +187,12 @@ namespace Tetris
                         int currentRow = ActiveRow + i;
                         int currentCol = ActiveColumn + j;
 
-                        Board[currentRow,currentCol] = ActivePiece[i, j];
-                        
-                            
-                        
+                        Board[currentRow, currentCol] = ActivePiece[i, j];
+
+
+
                     }
-                   
+
                 }
 
             }
@@ -225,40 +225,49 @@ namespace Tetris
         }
 
 
-            // TODO 4: Erzeuge eine um 90 Grad gedrehte Matrix.
-            // Übernimm sie nur, wenn CanPlacePiece die gedrehte Form erlaubt.
-            // Ein Quadrat darf bei dieser einfachen Variante unverändert bleiben.
-        
+        // TODO 4: Erzeuge eine um 90 Grad gedrehte Matrix.
+        // Übernimm sie nur, wenn CanPlacePiece die gedrehte Form erlaubt.
+        // Ein Quadrat darf bei dieser einfachen Variante unverändert bleiben.
 
         public void ClearFullRows()
         {
-
-            // gehe durch alle Rows
-            //   gehe durch alle Columns
-            //     wenn Cell == 0 -> nächste Row
-            //     wenn am ende der zeile clear row
-            //     Drüber Liegende zeilen nachrücken
-            for(int i = 0; i< Board.GetLength(0);i++ )
+            for (int row = 0; row < Rows; row++)
             {
-                for (int j = 0; j < Board.GetLength(1); j++)
+                // Ist die Zeile voll?
+                bool isFull = true;
+                for (int col = 0; col < Columns; col++)
                 {
-
-                    if (Board[i, j] == 0)
+                    if (Board[row, col] == 0)
                     {
-                        continue;
+                        isFull = false;
+                        break;
                     }
-                    if (j == Board.GetLength(1) - 1) 
-                    {
-                        Board[i, j] = 0;
+                }
 
-                    }
+                if (!isFull)
+                {
+                    continue;
+                }
 
+                // Volle Zeile leeren
+                for (int col = 0; col < Columns; col++)
+                {
+                    Board[row, col] = 0;
+                }
+
+                LinesCleared++;
+
+                {
                     
+
+
+
+
+
                 }    
-            }
-            // TODO 5: Entferne volle Reihen und verschiebe darüberliegende Reihen nach unten.
-            // Fülle oben mit leeren Zellen auf und erhöhe LinesCleared.
-            // Prüfe auch mehrere unmittelbar aufeinanderfolgende volle Reihen.
+            }   
+
         }
     }
+    
 }
