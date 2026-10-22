@@ -95,13 +95,10 @@ namespace Tetris
 
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
-        public void droppiece()
+        public void DropPiece()
         {
-
-
             // immer eine Zeile nach unten schieben, solange es geht
             while (TryMove(0, 1)) ;
-
         }
 
         public bool TryMove(int columnChange, int rowChange)
