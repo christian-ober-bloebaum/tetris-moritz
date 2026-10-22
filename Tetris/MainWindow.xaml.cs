@@ -104,7 +104,7 @@ namespace Tetris
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             // PreviewKeyDown erreicht uns auch dann, wenn ein Button den Fokus hat.
-            if (e.Key == Key.Space || e.Key == Key.R)
+            if (e.Key == Key.E || e.Key == Key.R)
             {
                 e.Handled = true;
                 if (e.IsRepeat)
@@ -112,7 +112,7 @@ namespace Tetris
                     return;
                 }
 
-                if (e.Key == Key.Space)
+                if (e.Key == Key.E)
                 {
                     ToggleTimer();
                 }
@@ -124,7 +124,7 @@ namespace Tetris
                 return;
             }
 
-            if (e.Key != Key.Left && e.Key != Key.Right && e.Key != Key.Down && e.Key != Key.Up)
+            if (e.Key != Key.Left && e.Key != Key.Right && e.Key != Key.Down && e.Key != Key.Up && e.Key != Key.Space)
             {
                 return;
             }
@@ -152,6 +152,10 @@ namespace Tetris
                 case Key.Up:
                     game.RotatePiece();
                     break;
+                case Key.Space:
+                    game.droppiece();
+                    break;
+
             }
 
             RefreshView();
