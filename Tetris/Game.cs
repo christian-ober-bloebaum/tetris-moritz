@@ -253,18 +253,27 @@ namespace Tetris
                 for (int col = 0; col < Columns; col++)
                 {
                     Board[row, col] = 0;
+                    
+                                    
                 }
-
+                
                 LinesCleared++;
-
+                for (int r = row; r > 0; r--)
                 {
+                    for ( int col = 0 ; col < Columns;col++)
+                    {
+                        Board[r, col] = Board[r - 1, col];
+                        
+
+
+
+                    }
                     
 
+                }
 
 
 
-
-                }    
             }   
 
         }
