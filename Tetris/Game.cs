@@ -99,11 +99,22 @@ namespace Tetris
         public void droppiece()
 
         {
+            int a = 0;
+            int b = 19;
+            for (int i = Board.GetLength(0); i > 0; i--)
+            {
+                if (i != 0)
+                {
+                    TryMove(a, i);
 
 
 
+                }
 
-        }
+
+            }
+
+        }   
 
                     
 
