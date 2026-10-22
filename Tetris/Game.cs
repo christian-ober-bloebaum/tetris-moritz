@@ -1,10 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Eventing.Reader;
-using System.Net.NetworkInformation;
-using System.Threading;
-using System.Windows.Input;
-using System.Linq;
-using System.Windows.Controls;
 using System;
 using System.Collections.Generic;
 
@@ -176,7 +169,7 @@ namespace Tetris
             if (TryMove(0, 1))
                 return;
             LockPiece();
-            
+            ClearFullRows();
             SpawnPiece();
 
             // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
@@ -239,6 +232,30 @@ namespace Tetris
 
         public void ClearFullRows()
         {
+
+            // gehe durch alle Rows
+            //   gehe durch alle Columns
+            //     wenn Cell == 0 -> nächste Row
+            //     wenn am ende der zeile clear row
+            //     Drüber Liegende zeilen nachrücken
+            for(int i = 0; i< Board.GetLength(0);i++ )
+            {
+                for (int j = 0; j < Board.GetLength(1); j++)
+                {
+
+                    if (Board[i, j] == 0)
+                    {
+                        continue;
+                    }
+                    if (j == Board.GetLength(1) - 1) 
+                    {
+                        Board[i, j] = 0;
+
+                    }
+
+                    
+                }    
+            }
             // TODO 5: Entferne volle Reihen und verschiebe darüberliegende Reihen nach unten.
             // Fülle oben mit leeren Zellen auf und erhöhe LinesCleared.
             // Prüfe auch mehrere unmittelbar aufeinanderfolgende volle Reihen.
