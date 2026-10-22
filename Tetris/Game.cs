@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging.Effects;
 
 namespace Tetris
 {
@@ -97,33 +96,14 @@ namespace Tetris
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
         public void droppiece()
-
         {
-            int a = 0;
-            int b = 19;
-            for (int i = Board.GetLength(0); i > 0; i--)
-            {
-                if (i != 0)
-                {
-                    TryMove(a, i);
 
 
+            // immer eine Zeile nach unten schieben, solange es geht
+            while (TryMove(0, 1)) ;
 
-                }
+        }
 
-
-            }
-
-        }   
-
-                    
-
-
-                
-
-
-            
-        
         public bool TryMove(int columnChange, int rowChange)
         {
             int targetrow = ActiveRow + rowChange;
@@ -135,10 +115,6 @@ namespace Tetris
                 ActiveColumn = targetcol;
 
                 return true;
-
-
-
-
             }
 
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
@@ -199,10 +175,12 @@ namespace Tetris
             LockPiece();
             ClearFullRows();
             SpawnPiece();
-
-            // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen.
-            // TODO 6: Nach Game Over darf sich der Spielzustand nicht mehr ändern.
         }
+
+
+
+        // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen      // TODO 6: Nach Game Over darf sich der Spielzustand nicht mehr ändern.
+
 
         public void LockPiece()
         {
@@ -281,30 +259,30 @@ namespace Tetris
                 for (int col = 0; col < Columns; col++)
                 {
                     Board[row, col] = 0;
-                    
-                                    
+
+
                 }
-                
+
                 LinesCleared++;
                 for (int r = row; r > 0; r--)
                 {
-                    for ( int col = 0 ; col < Columns;col++)
+                    for (int col = 0; col < Columns; col++)
                     {
                         Board[r, col] = Board[r - 1, col];
-                        
+
 
 
 
                     }
-                    
+
 
                 }
 
 
 
-            }   
+            }
 
         }
     }
-    
+
 }
