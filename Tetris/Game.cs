@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Tetris
 {
     // Hier entsteht das Spiel. Diese Klasse kennt weder Fenster noch Farben oder Tasten.
     public class Game
     {
+
         public const int Columns = 10;
         public const int Rows = 20;
 
@@ -70,6 +72,25 @@ namespace Tetris
             Reset();
         }
 
+
+
+
+
+        private bool shiftState = false;
+
+        public bool shiftpressed()
+        {
+            if (shiftState == true)
+            {
+                shiftState = false;
+            }
+            else
+            {
+                shiftState = true;
+            }
+
+            return shiftState;
+        }
         public void Reset()
         {
             Board = new int[Rows, Columns];
@@ -205,6 +226,7 @@ namespace Tetris
 
         public void RotatePiece()
         {
+            
             int rows = ActivePiece.GetLength(0);
             int cols = ActivePiece.GetLength(1);
 
@@ -216,7 +238,20 @@ namespace Tetris
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    rotatedPiece[j, rows - 1 - i] = ActivePiece[i, j];
+                    if (shiftState == false)
+                    {
+                        rotatedPiece[cols - 1 - j, i] = ActivePiece[i, j];
+
+                    }
+                    {
+                    if (shiftState == true)
+                    {
+                            rotatedPiece[j,rows - 1 - i] = ActivePiece[i, j];
+
+                        }
+
+
+                    }
                 }
             }
 
