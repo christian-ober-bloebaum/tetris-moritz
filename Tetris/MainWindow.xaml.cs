@@ -22,12 +22,12 @@ namespace Tetris
 
             // Der WPF-Timer läuft auf dem UI-Thread. Hier sind keine Hintergrundthreads nötig.
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Interval = TimeSpan.FromMilliseconds(500);
             timer.Tick += Timer_Tick;
 
             RefreshView();
         }
-
+        
         private void Timer_Tick(object? sender, EventArgs e)
         {
             AdvanceOneStep();
@@ -124,7 +124,7 @@ namespace Tetris
                 return;
             }
 
-            if (e.Key != Key.Left && e.Key != Key.Right && e.Key != Key.Down && e.Key != Key.Up && e.Key != Key.Space)
+            if (e.Key != Key.Left && e.Key != Key.Right && e.Key != Key.Down && e.Key != Key.Up && e.Key != Key.Space && e.Key != Key.LeftShift)
             {
                 return;
             }
@@ -154,13 +154,16 @@ namespace Tetris
                     break;
                 case Key.Space:
                     game.DropPiece();
-                    break;
 
+                    break;
+                case Key.LeftShift:
+                    game.shiftpressed();
+                    break;
             }
 
             RefreshView();
         }
-
+        
         private void RefreshView()
         {
             renderer.Draw(game);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Printing;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Tetris
@@ -7,10 +8,8 @@ namespace Tetris
     // Hier entsteht das Spiel. Diese Klasse kennt weder Fenster noch Farben oder Tasten.
     public class Game
     {
-
         public const int Columns = 10;
         public const int Rows = 20;
-
         // Zugriff immer mit [Zeile, Spalte]. Zeile 0 ist oben, Spalte 0 ist links.
         // 0 bedeutet leer. Zahlen von 1 bis 7 stehen für verschiedene Steinfarben.
         // Board enthält nur festgesetzte Steine. Der aktive Stein wird getrennt gehalten.
@@ -23,7 +22,7 @@ namespace Tetris
 
         public int LinesCleared { get; private set; }
         public bool IsGameOver { get; private set; }
-
+        public int timereduce {  get; private set; }
         private List<int[,]> KnownPieces = new List<int[,]>
         {
             new int[,]
@@ -62,8 +61,6 @@ namespace Tetris
 
                 { 5, 5, 5, 5},
             },
-
-
         };
         private Random random = new Random();
 
@@ -71,11 +68,6 @@ namespace Tetris
         {
             Reset();
         }
-
-
-
-
-
         private bool shiftState = false;
 
         public bool shiftpressed()
@@ -94,6 +86,10 @@ namespace Tetris
         public void Reset()
         {
             Board = new int[Rows, Columns];
+
+
+
+
             LinesCleared = 0;
             IsGameOver = false;
             SpawnPiece();
@@ -121,7 +117,6 @@ namespace Tetris
             // immer eine Zeile nach unten schieben, solange es geht
             while (TryMove(0, 1)) ;
         }
-
         public bool TryMove(int columnChange, int rowChange)
         {
             int targetrow = ActiveRow + rowChange;
@@ -131,10 +126,8 @@ namespace Tetris
             {
                 ActiveRow = targetrow;
                 ActiveColumn = targetcol;
-
                 return true;
             }
-
             // TODO 1: Berechne die neue Position und prüfe sie mit CanPlacePiece.
             // Ändere die Position nur bei einem erlaubten Zug und liefere dann true.
             // Bei einem ungültigen Zug bleiben Position und Spielfeld unverändert.
@@ -144,14 +137,11 @@ namespace Tetris
 
         public bool CanPlacePiece(int[,] piece, int targetRow, int targetColumn)
         {
-
             for (int i = 0; i < piece.GetLength(0); i++)
             {
-
                 for (int j = 0; j < piece.GetLength(1); j++)
                 {
                     // TODO 1: Prüfe jede belegte Zelle der Steinmatrix.    
-
                     //leere Matrixzellen zählen nicht.
                     if (piece[i, j] == 0)
                     {
@@ -162,8 +152,6 @@ namespace Tetris
                     // Die Zielzelle muss im Spielfeld liegen; 
                     if (currentBoardRow < 0 || currentBoardRow >= Rows || currentBoardCol < 0 || currentBoardCol >= Columns)
                     {
-
-
                         return false;
                     }
                     // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
@@ -171,19 +159,11 @@ namespace Tetris
                     if (Board[currentBoardRow, currentBoardCol] > 0)
                     {
                         return false;
-
                     }
-
-
-
                 }
-
             }
-
-
             return true;
         }
-
         public void Tick()
         {
             // Ein Tick entspricht genau einem Schritt des Spiels.
@@ -194,12 +174,7 @@ namespace Tetris
             ClearFullRows();
             SpawnPiece();
         }
-
-
-
         // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen      // TODO 6: Nach Game Over darf sich der Spielzustand nicht mehr ändern.
-
-
         public void LockPiece()
         {
             for (int i = 0; i < ActivePiece.GetLength(0); i++)
@@ -212,27 +187,17 @@ namespace Tetris
                         int currentCol = ActiveColumn + j;
 
                         Board[currentRow, currentCol] = ActivePiece[i, j];
-
-
-
                     }
-
                 }
-
             }
             // TODO 3: Übertrage belegte Zellen des aktiven Steins nach Board.
         }
-
-
         public void RotatePiece()
         {
-            
             int rows = ActivePiece.GetLength(0);
             int cols = ActivePiece.GetLength(1);
-
             // Neue Matrix für den gedrehten Stein erstellen
             int[,] rotatedPiece = new int[cols, rows];
-
             // Matrix drehen
             for (int i = 0; i < rows; i++)
             {
@@ -247,26 +212,19 @@ namespace Tetris
                     if (shiftState == true)
                     {
                             rotatedPiece[j,rows - 1 - i] = ActivePiece[i, j];
-
                         }
-
-
                     }
                 }
             }
-
             // Erst jetzt die vollständige Matrix überprüfen
             if (CanPlacePiece(rotatedPiece, ActiveRow, ActiveColumn))
             {
                 ActivePiece = rotatedPiece;
             }
         }
-
-
         // TODO 4: Erzeuge eine um 90 Grad gedrehte Matrix.
         // Übernimm sie nur, wenn CanPlacePiece die gedrehte Form erlaubt.
         // Ein Quadrat darf bei dieser einfachen Variante unverändert bleiben.
-
         public void ClearFullRows()
         {
             for (int row = 0; row < Rows; row++)
@@ -281,40 +239,24 @@ namespace Tetris
                         break;
                     }
                 }
-
                 if (!isFull)
                 {
                     continue;
                 }
-
                 // Volle Zeile leeren
                 for (int col = 0; col < Columns; col++)
                 {
                     Board[row, col] = 0;
-
-
                 }
-
                 LinesCleared++;
                 for (int r = row; r > 0; r--)
                 {
                     for (int col = 0; col < Columns; col++)
                     {
                         Board[r, col] = Board[r - 1, col];
-
-
-
-
                     }
-
-
                 }
-
-
-
             }
-
         }
     }
-
 }
