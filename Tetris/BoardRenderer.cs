@@ -40,7 +40,21 @@ namespace Tetris
                     SetCellColor(row, column, game.Board[row, column]);
                 }
             }
-
+            if (!game.IsGameOver)
+            {
+                int ghostRow = game.GetDroppedPieceRow();
+                for (int row = 0; row < game.ActivePiece.GetLength(0); row++)
+                {
+                    for (int column = 0; column < game.ActivePiece.GetLength(1); column++)
+                    {
+                        int color = game.ActivePiece[row, column];
+                        if (color != 0)
+                        {
+                            SetCellColor(ghostRow + row, game.ActiveColumn + column, color, 0.35);
+                        }
+                    }
+                }
+            }
             for (int row = 0; row < game.ActivePiece.GetLength(0); row++)
             {
                 for (int column = 0; column < game.ActivePiece.GetLength(1); column++)
@@ -54,37 +68,42 @@ namespace Tetris
             }
         }
 
-        // Koordinaten außerhalb des Spielfelds werden beim Zeichnen ignoriert.
-        // Die Kollisionsprüfung gehört trotzdem in Game.CanPlacePiece.
-        private void SetCellColor(int row, int column, int color)
+        private void SetCellColor(int row, int column, int color, double opacity = 1.0)
         {
             if (row < 0 || row >= Game.Rows || column < 0 || column >= Game.Columns)
             {
                 return;
             }
 
-            cells[row, column].Background = GetBrush(color);
+            var brush = GetBrush(color, opacity);
+            cells[row, column].Background = brush;
         }
 
-        private Brush GetBrush(int color)
+        private Brush GetBrush(int color, double opacity)
         {
+            Brush b = emptyCellBrush;
             switch (color)
             {
-                case 1: return Brushes.Turquoise;
-                case 2: return Brushes.Gold;
-                case 3: return Brushes.MediumPurple;
-                case 4: return Brushes.Coral;
-                case 5: return Brushes.CornflowerBlue;
-                case 6: return Brushes.LightGreen;
-                case 7: return Brushes.HotPink;
-                case 8: return Brushes.Crimson;       // Ein kräftiges Dunkelrot
-                case 9: return Brushes.DarkOrange;    // Ein sattes Orange
-                case 10: return Brushes.Teal;         // Ein dunkles Blaugrün
-                case 11: return Brushes.Orchid;       // Ein schöner Lilaton
-                case 12: return Brushes.DeepSkyBlue;  // Ein leuchtendes Hellblau
-                case 13: return Brushes.LimeGreen;    // Ein knalliges Apfelgrün               
-                default: return emptyCellBrush;
+                case 1: b = Brushes.Turquoise; break;
+                case 2: b = Brushes.Gold; break;
+                case 3: b = Brushes.MediumPurple; break;
+                case 4: b = Brushes.Coral; break;
+                case 5: b = Brushes.CornflowerBlue; break;
+                case 6: b = Brushes.LightGreen; break;
+                case 7: b = Brushes.HotPink; break;
+                case 8: b = Brushes.Crimson; break;       // Ein kräftiges Dunkelrot
+                case 9: b = Brushes.DarkOrange; break;    // Ein sattes Orange
+                case 10: b = Brushes.Teal; break;        // Ein dunkles Blaugrün
+                case 11: b = Brushes.Orchid; break;      // Ein schöner Lilaton
+                case 12: b = Brushes.DeepSkyBlue; break; // Ein leuchtendes Hellblau
+                case 13: b = Brushes.LimeGreen; break;   // Ein knalliges Apfelgrün               
             }
+            if(opacity != b.Opacity)
+            {
+                b = ((SolidColorBrush)b).Clone();
+                b.Opacity = opacity;
+            }
+            return b;
         }
     }
 }

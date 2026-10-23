@@ -163,7 +163,6 @@ namespace Tetris
 
             RefreshView();
         }
-        
         private void RefreshView()
         {
             renderer.Draw(game);
@@ -191,7 +190,6 @@ namespace Tetris
                 PauseGame();
             }
         }
-
         protected override void OnClosed(EventArgs e)
         {
             timer.Stop();

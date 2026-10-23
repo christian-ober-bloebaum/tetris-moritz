@@ -80,16 +80,11 @@ namespace Tetris
             {
                 shiftState = true;
             }
-
             return shiftState;
         }
         public void Reset()
         {
             Board = new int[Rows, Columns];
-
-
-
-
             LinesCleared = 0;
             IsGameOver = false;
             SpawnPiece();
@@ -97,8 +92,6 @@ namespace Tetris
         public void SpawnPiece()
         {
             // Ein Quadrat ist der erste Übungsstein. Weitere Formen folgen später.
-
-
             int randomIndex = random.Next(KnownPieces.Count);
             ActivePiece = KnownPieces[randomIndex];
             ActiveRow = 0;
@@ -108,15 +101,25 @@ namespace Tetris
             {
                 IsGameOver = true;
             }
-
-
             // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
+
+        public int GetDroppedPieceRow()
+        {
+            // ermittle, in welcher Zeile das aktuelle Piece landen würde - ähnlich wie DropPiece
+            int row = ActiveRow;
+            while (CanPlacePiece(ActivePiece, row + 1, ActiveColumn))
+            {
+                row++;
+            }
+            return row;
+        }
+
         public void DropPiece()
         {
-            // immer eine Zeile nach unten schieben, solange es geht
-            while (TryMove(0, 1)) ;
+            ActiveRow = GetDroppedPieceRow();
         }
+
         public bool TryMove(int columnChange, int rowChange)
         {
             int targetrow = ActiveRow + rowChange;
@@ -152,7 +155,7 @@ namespace Tetris
                     // Die Zielzelle muss im Spielfeld liegen; 
                     if (currentBoardRow < 0 || currentBoardRow >= Rows || currentBoardCol < 0 || currentBoardCol >= Columns)
                     {
-                        return false;
+                          return false;
                     }
                     // TODO 3: Prüfe zusätzlich, ob Board an der Zielzelle bereits belegt ist.
                     // Prüfe die Grenzen, BEVOR du auf Board zugreifst.
