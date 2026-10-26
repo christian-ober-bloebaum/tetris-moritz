@@ -157,7 +157,7 @@ namespace Tetris
 
                     break;
                 case Key.LeftShift:
-                    game.shiftpressed();
+                    game.ToggleRotationDirection();
                     break;
             }
 

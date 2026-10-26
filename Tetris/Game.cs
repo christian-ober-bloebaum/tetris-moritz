@@ -68,19 +68,11 @@ namespace Tetris
         {
             Reset();
         }
-        private bool shiftState = false;
+        private bool rotateLeft = false;
 
-        public bool shiftpressed()
+        public void ToggleRotationDirection()
         {
-            if (shiftState == true)
-            {
-                shiftState = false;
-            }
-            else
-            {
-                shiftState = true;
-            }
-            return shiftState;
+            rotateLeft = !rotateLeft;
         }
         public void Reset()
         {
@@ -206,16 +198,15 @@ namespace Tetris
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    if (shiftState == false)
+                    if (rotateLeft)
                     {
-                        rotatedPiece[cols - 1 - j, i] = ActivePiece[i, j];
-
+                        // rotate left
+                        rotatedPiece[j, rows - 1 - i] = ActivePiece[i, j];
                     }
+                    else
                     {
-                    if (shiftState == true)
-                    {
-                            rotatedPiece[j,rows - 1 - i] = ActivePiece[i, j];
-                        }
+                        // rotate right
+                        rotatedPiece[cols - 1 - j, i] = ActivePiece[i, j];
                     }
                 }
             }
