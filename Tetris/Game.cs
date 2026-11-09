@@ -198,14 +198,14 @@ namespace Tetris
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    if (rotateLeft)
+                    if (rotateLeft == false)
                     {
-                        // rotate left
+                        // rotate right
                         rotatedPiece[j, rows - 1 - i] = ActivePiece[i, j];
                     }
                     else
                     {
-                        // rotate right
+                        // rotate left
                         rotatedPiece[cols - 1 - j, i] = ActivePiece[i, j];
                     }
                 }

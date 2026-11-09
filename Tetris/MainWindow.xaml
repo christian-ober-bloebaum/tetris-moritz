@@ -51,13 +51,51 @@
             <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
                 <StackPanel Margin="0,0,8,0">
+
                     <TextBlock Text="SPIELTAKT" FontWeight="Bold" Foreground="#AABAD0" Margin="0,0,0,12" />
                     <Button x:Name="StartPauseButton" Content="Start" Click="StartPauseButton_Click" />
                     <Button Content="Neu starten · R" Click="ResetButton_Click" />
                     <Button x:Name="StepButton" Content="Einzelschritt" Click="StepButton_Click" />
 
                     <TextBlock Text="STEUERUNG" FontWeight="Bold" Foreground="#AABAD0" Margin="0,20,0,10" />
-                    <TextBlock Text="← / →   Stein bewegen&#x0a;    ↓           Eine Zeile runter&#x0a;Leertaste           Ganz fallen lassen&#x0a;↑                        Stein drehen&#x0a;SHIFT                        Drehrichtung ändern&#x0a;E   Start / Pause&#x0a;R           Zurücksetzen" LineHeight="24" />
+
+                    <!-- Steuerung im Grid: Links Taste, Rechts Beschreibung -->
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="← / →" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,12,6" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Stein bewegen" Margin="0,0,0,6" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="↓" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,12,6" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Eine Zeile runter" Margin="0,0,0,6" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Leertaste" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,12,6" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Ganz fallen lassen" Margin="0,0,0,6" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="↑" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,12,6" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="Stein drehen" Margin="0,0,0,6" />
+
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="SHIFT" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,12,6" />
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="Drehrichtung ändern" Margin="0,0,0,6" />
+
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="E" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,12,6" />
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="Start / Pause" Margin="0,0,0,6" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="R" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,12,0" />
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="Zurücksetzen" Margin="0,0,0,0" />
+                    </Grid>
 
                     <TextBlock Text="BEOBACHTEN" FontWeight="Bold" Foreground="#AABAD0" Margin="0,22,0,10" />
                     <TextBlock x:Name="TickText" Text="Spieltakte: 0" />
