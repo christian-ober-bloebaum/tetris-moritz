@@ -12,6 +12,8 @@ namespace Tetris
         private readonly BoardRenderer renderer;
         private readonly DispatcherTimer timer;
         private int tickCount;
+        private readonly PreviewPieceRenderer previewRenderer;
+
 
         public MainWindow()
         {
@@ -24,7 +26,7 @@ namespace Tetris
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(500);
             timer.Tick += Timer_Tick;
-
+            previewRenderer = new PreviewPieceRenderer(PreviewPanel);
             RefreshView();
         }
         
@@ -165,7 +167,10 @@ namespace Tetris
         }
         private void RefreshView()
         {
+
+
             renderer.Draw(game);
+            previewRenderer.DrawPreview(game.NextPiece, renderer);
             TickText.Text = "Spieltakte: " + tickCount;
             LinesText.Text = "Entfernte Reihen: " + game.LinesCleared;
 

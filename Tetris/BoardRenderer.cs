@@ -79,7 +79,7 @@ namespace Tetris
             cells[row, column].Background = brush;
         }
 
-        private Brush GetBrush(int color, double opacity)
+        public Brush GetBrush(int color, double opacity)
         {
             Brush b = emptyCellBrush;
             switch (color)

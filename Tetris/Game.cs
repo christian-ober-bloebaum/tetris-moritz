@@ -10,6 +10,10 @@ namespace Tetris
     {
         public const int Columns = 10;
         public const int Rows = 20;
+        public const int PrewiewRows = 4;
+        public const int PreviewCols = 4;
+
+        public int[,] NextPiece { get; private set; } = new int[0, 0];
         // Zugriff immer mit [Zeile, Spalte]. Zeile 0 ist oben, Spalte 0 ist links.
         // 0 bedeutet leer. Zahlen von 1 bis 7 stehen für verschiedene Steinfarben.
         // Board enthält nur festgesetzte Steine. Der aktive Stein wird getrennt gehalten.
@@ -79,13 +83,27 @@ namespace Tetris
             Board = new int[Rows, Columns];
             LinesCleared = 0;
             IsGameOver = false;
-            SpawnPiece();
-        }
-        public void SpawnPiece()
-        {
-            // Ein Quadrat ist der erste Übungsstein. Weitere Formen folgen später.
+
+            // Initialisiere den ersten und den nächsten Stein
             int randomIndex = random.Next(KnownPieces.Count);
             ActivePiece = KnownPieces[randomIndex];
+
+            int nextIndex = random.Next(KnownPieces.Count);
+            NextPiece = KnownPieces[nextIndex];
+
+            ActiveRow = 0;
+            ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
+        }
+
+        public void SpawnPiece()
+        {
+            // Der nächste Stein wird zum aktiven Stein
+            ActivePiece = NextPiece;
+
+            // Ein neuer "NextPiece" wird gewürfelt
+            int nextIndex = random.Next(KnownPieces.Count);
+            NextPiece = KnownPieces[nextIndex];
+
             ActiveRow = 0;
             ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
 
@@ -93,7 +111,6 @@ namespace Tetris
             {
                 IsGameOver = true;
             }
-            // TODO 6: Prüfe beim Erzeugen eines Steins, ob das Spiel zu Ende ist.
         }
 
         public int GetDroppedPieceRow()
@@ -110,6 +127,7 @@ namespace Tetris
         public void DropPiece()
         {
             ActiveRow = GetDroppedPieceRow();
+            Tick();
         }
 
         public bool TryMove(int columnChange, int rowChange)
