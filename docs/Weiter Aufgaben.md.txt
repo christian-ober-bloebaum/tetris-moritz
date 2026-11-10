@@ -1,10 +1,31 @@
 -Auswechselbare Pieces (Ablage)
--Punkte
--Nutzerdate/Speichern
--Gegen einander spielen
+-Punkte	
 -Tick Timer verkürzt sich über zeit
--Da mehrere modi (2 spieler/ 2 Spieler gegen einander / Rougelike) Ein Startmenü)
--wegen 2 spieler modi 2 vershciedene tasten eigabe systheme ( Controller wenn  ich hraus finden kann wie das geht).
+
+Todo:
+-Nutzerdate/Speichern
+	-Name
+	-Highscores
+	-Accounts
+	-Gast Accounts (Anonym)
+	-Daten Speichern und laden
+	-Oberflächen Elemente
+	-Hinzufügen von Accounts und auswählen von Accounts
+	-Bei hinzufügen Account direkt auswählen
+	-Letzten Account bei Start automatisch auswählen
+	
+-Gegen einander spielen
+	-2 Spielfelder nebeneinander
+	-Wen auf einer Seite reihen entfernt werden auf der anderen welche hinzu fügen
+	-Wenn einer oben ankommt hat der andere gewonnen
+	
+-Da mehrere Modi 1Spieler / 2 Spieler gegen einander / Rougelike) Ein Startmenü)
+	-Auswahl zwischen den modi
+	-Anmelde Fenster
+	-
+
+	
+-wegen 2 spieler modi 2 vershciedene tasten eigabe systheme ( Controller wenn  ich heraus finden kann wie das geht).
 
 
 -Rougelike Modus zusätzlich zum coop Modus

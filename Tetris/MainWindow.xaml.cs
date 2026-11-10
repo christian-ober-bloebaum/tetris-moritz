@@ -11,10 +11,10 @@ namespace Tetris
         private readonly Game game;
         private readonly BoardRenderer renderer;
         private readonly DispatcherTimer timer;
-        private int tickCount;
+        public int tickCount;
         private readonly PreviewPieceRenderer previewRenderer;
         public readonly SwapPiece swapPieceRenderer;
-
+        public int TickCountdown = 500;
 
         public MainWindow()
         {
@@ -26,12 +26,12 @@ namespace Tetris
 
             // Der WPF-Timer läuft auf dem UI-Thread. Hier sind keine Hintergrundthreads nötig.
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Interval = TimeSpan.FromMilliseconds(TickCountdown);
             timer.Tick += Timer_Tick;
             previewRenderer = new PreviewPieceRenderer(PreviewPanel);
             RefreshView();
         }
-        
+
         private void Timer_Tick(object? sender, EventArgs e)
         {
             AdvanceOneStep();
@@ -48,6 +48,7 @@ namespace Tetris
             game.Tick();
             tickCount++;
             RefreshView();
+
         }
 
         private void StartPauseButton_Click(object sender, RoutedEventArgs e)
@@ -98,6 +99,7 @@ namespace Tetris
             InputText.Text = "Letzte Eingabe: –";
             StatusText.Text = "Zurückgesetzt. Bereit für die nächste Runde.";
             RefreshView();
+            TickCountdown = 500;
         }
 
         private void StepButton_Click(object sender, RoutedEventArgs e)
@@ -180,6 +182,8 @@ namespace Tetris
             TickText.Text = "Spieltakte: " + tickCount;
             LinesText.Text = "Entfernte Reihen: " + game.LinesCleared;
             ScoreTracker.Text = game.Score.ToString();
+            int newInterval = Math.Max(150, 500 - ((game.PiecesSpawned - 1) * 10));
+            timer.Interval = TimeSpan.FromMilliseconds(newInterval);
             if (game.IsGameOver)
             {
                 timer.Stop();

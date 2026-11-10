@@ -19,7 +19,7 @@ namespace Tetris
         public int[,] NextPiece { get; private set; } = new int[0, 0];
         public int[,] Board { get; private set; } = new int[Rows, Columns];
         public int[,] ActivePiece { get; private set; } = new int[0, 0];
-
+        public int PiecesSpawned { get; private set; } = 0;
         private int lastClearedLines = -1;
         public int MaxCombo { get; private set; } = 5;
         public int ActiveRow { get; private set; }
@@ -127,7 +127,7 @@ namespace Tetris
             lastClearedLines = -1;
             IsGameOver = false;
             hasSwapped = false;
-
+            PiecesSpawned = 1;
             int randomSwap = random.Next(KnownPieces.Count);
             ExtraPieace = KnownPieces[randomSwap];
 
@@ -151,6 +151,7 @@ namespace Tetris
             ActiveRow = 0;
             ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
             hasSwapped = false;
+            PiecesSpawned++;
 
             if (!CanPlacePiece(ActivePiece, ActiveRow, ActiveColumn))
             {
