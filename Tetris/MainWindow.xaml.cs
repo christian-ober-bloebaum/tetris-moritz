@@ -179,7 +179,7 @@ namespace Tetris
             swapPieceRenderer.DrawPreview(game.ExtraPieace, renderer);
             TickText.Text = "Spieltakte: " + tickCount;
             LinesText.Text = "Entfernte Reihen: " + game.LinesCleared;
-
+            ScoreTracker.Text = game.Score.ToString();
             if (game.IsGameOver)
             {
                 timer.Stop();
