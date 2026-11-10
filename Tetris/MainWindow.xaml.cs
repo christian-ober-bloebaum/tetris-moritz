@@ -13,6 +13,7 @@ namespace Tetris
         private readonly DispatcherTimer timer;
         private int tickCount;
         private readonly PreviewPieceRenderer previewRenderer;
+        public readonly SwapPiece swapPieceRenderer;
 
 
         public MainWindow()
@@ -21,6 +22,7 @@ namespace Tetris
 
             game = new Game();
             renderer = new BoardRenderer(BoardPanel);
+            swapPieceRenderer = new SwapPiece(BlockSwitch);
 
             // Der WPF-Timer läuft auf dem UI-Thread. Hier sind keine Hintergrundthreads nötig.
             timer = new DispatcherTimer();
@@ -126,7 +128,7 @@ namespace Tetris
                 return;
             }
 
-            if (e.Key != Key.Left && e.Key != Key.Right && e.Key != Key.Down && e.Key != Key.Up && e.Key != Key.Space && e.Key != Key.LeftShift)
+            if (e.Key != Key.Left && e.Key != Key.Right && e.Key != Key.Down && e.Key != Key.Up && e.Key != Key.Space && e.Key != Key.LeftShift && e.Key !=Key.C)
             {
                 return;
             }
@@ -161,7 +163,10 @@ namespace Tetris
                 case Key.LeftShift:
                     game.ToggleRotationDirection();
                     break;
-            }
+                case Key.C:
+                    game.SwapPiece();
+                    break;
+            }   
 
             RefreshView();
         }
@@ -171,6 +176,7 @@ namespace Tetris
 
             renderer.Draw(game);
             previewRenderer.DrawPreview(game.NextPiece, renderer);
+            swapPieceRenderer.DrawPreview(game.ExtraPieace, renderer);
             TickText.Text = "Spieltakte: " + tickCount;
             LinesText.Text = "Entfernte Reihen: " + game.LinesCleared;
 

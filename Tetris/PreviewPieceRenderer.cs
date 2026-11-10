@@ -7,7 +7,6 @@ namespace Tetris
 {
     public class PreviewPieceRenderer
     {
-        // WICHTIG: Hier müssen exakt die Vorschau-Größen stehen (4x4)
         private readonly Border[,] cells = new Border[Game.PrewiewRows, Game.PreviewCols];
         private readonly Brush emptyCellBrush = new SolidColorBrush(Color.FromRgb(27, 38, 56));
 
@@ -35,7 +34,7 @@ namespace Tetris
 
         public void DrawPreview(int[,] nextPiece, BoardRenderer boardRenderer)
         {
-            // Erst alle Zellen der Vorschau leeren
+
             for (int row = 0; row < Game.PrewiewRows; row++)
             {
                 for (int column = 0; column < Game.PreviewCols; column++)
@@ -63,7 +62,7 @@ namespace Tetris
                         int targetR = startRow + r;
                         int targetC = startCol + c;
 
-                        // Nur zeichnen, wenn es sicher in der 4x4 Matrix liegt
+  
                         if (targetR >= 0 && targetR < Game.PrewiewRows && targetC >= 0 && targetC < Game.PreviewCols)
                         {
                             cells[targetR, targetC].Background = boardRenderer.GetBrush(color, 1.0);

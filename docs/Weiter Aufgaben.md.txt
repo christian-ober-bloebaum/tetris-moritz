@@ -1,0 +1,26 @@
+-Auswechselbare Pieces (Ablage)
+-Punkte
+-Nutzerdate/Speichern
+-Gegen einander spielen
+-Tick Timer verkürzt sich über zeit
+-Da mehrere modi (2 spieler/ 2 Spieler gegen einander / Rougelike) Ein Startmenü)
+-wegen 2 spieler modi 2 vershciedene tasten eigabe systheme ( Controller wenn  ich hraus finden kann wie das geht).
+
+
+-Rougelike Modus zusätzlich zum coop Modus
+-Rougelike Basics:
+-Ein Shop
+-Ein Punktesysthem/Schwierrigkeitssysthem
+-Gegner die über zeit schwerer werden
+-items die dich stärker machen um diese Gegner zu besiegen
+-Bosse
+-Skilltree
+-Moneten/Geld
+-Animation (villeicht)
+
+-Originale Ideen für den Modus:
+-Combos für mehr Damage oder Geld.
+-Mehr pieces machen und sie in gruppen unterteilen für Build Optionen mit items.
+-je schwieriger desto mehr reihen generieren oder das spiel wird schneller oder beides.
+-auf dem Feld erscheinende Gegner in die man reinrotieren muss um sie zu zerstören.
+-

@@ -12,6 +12,8 @@ namespace Tetris
         public const int Rows = 20;
         public const int PrewiewRows = 4;
         public const int PreviewCols = 4;
+        public const int ExtraRows = 4;
+        public const int ExtraCols = 4;
 
         public int[,] NextPiece { get; private set; } = new int[0, 0];
         // Zugriff immer mit [Zeile, Spalte]. Zeile 0 ist oben, Spalte 0 ist links.
@@ -26,8 +28,11 @@ namespace Tetris
 
         public int LinesCleared { get; private set; }
         public bool IsGameOver { get; private set; }
+        public int[,] ExtraPieace { get; private set; } = new int[0, 0];
         public int timereduce {  get; private set; }
         private List<int[,]> KnownPieces = new List<int[,]>
+
+
         {
             new int[,]
             {
@@ -78,13 +83,50 @@ namespace Tetris
         {
             rotateLeft = !rotateLeft;
         }
+        private bool hasSwapped = false;
+        public void SwapPiece()
+        {
+            {
+                if (IsGameOver || hasSwapped) return;
+
+                if (ExtraPieace == null || ExtraPieace.GetLength(0) == 0)
+                {
+
+                    ExtraPieace = ActivePiece;
+                    SpawnPiece();
+                }
+                else
+                {
+
+                    int[,] temp = ActivePiece;
+                    ActivePiece = ExtraPieace;
+                    ExtraPieace = temp;
+
+
+                    ActiveRow = 0;
+                    ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
+
+
+                    if (!CanPlacePiece(ActivePiece, ActiveRow, ActiveColumn))
+                    {
+                        IsGameOver = true;
+                    }
+                }
+
+                hasSwapped = true;
+
+            }
+        }
         public void Reset()
         {
             Board = new int[Rows, Columns];
             LinesCleared = 0;
             IsGameOver = false;
+            hasSwapped = false;
 
-            // Initialisiere den ersten und den nächsten Stein
+            int randomSwap = random.Next(KnownPieces.Count);
+            ExtraPieace = KnownPieces[randomSwap];
+
             int randomIndex = random.Next(KnownPieces.Count);
             ActivePiece = KnownPieces[randomIndex];
 
@@ -97,15 +139,16 @@ namespace Tetris
 
         public void SpawnPiece()
         {
-            // Der nächste Stein wird zum aktiven Stein
+
             ActivePiece = NextPiece;
 
-            // Ein neuer "NextPiece" wird gewürfelt
+
             int nextIndex = random.Next(KnownPieces.Count);
             NextPiece = KnownPieces[nextIndex];
 
             ActiveRow = 0;
             ActiveColumn = (Columns - ActivePiece.GetLength(1)) / 2;
+            hasSwapped = false;
 
             if (!CanPlacePiece(ActivePiece, ActiveRow, ActiveColumn))
             {
@@ -186,6 +229,7 @@ namespace Tetris
             LockPiece();
             ClearFullRows();
             SpawnPiece();
+           
         }
         // TODO 3: Falls das nicht geht: festsetzen, Reihen entfernen, neuen Stein erzeugen      // TODO 6: Nach Game Over darf sich der Spielzustand nicht mehr ändern.
         public void LockPiece()
