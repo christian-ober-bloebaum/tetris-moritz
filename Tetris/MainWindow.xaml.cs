@@ -5,32 +5,57 @@ using System.Windows.Threading;
 
 namespace Tetris
 {
-    // Verbindet Tasten, Timer und Spiel. Die Regeln werden in Game.cs implementiert.
+
     public partial class MainWindow : Window
     {
-        private readonly Game game;
-        private readonly BoardRenderer renderer;
-        private readonly DispatcherTimer timer;
+
+        private Game game = null!;
+        private BoardRenderer renderer = null!;
+        private DispatcherTimer timer = null!;
         public int tickCount;
-        private readonly PreviewPieceRenderer previewRenderer;
-        public readonly SwapPiece swapPieceRenderer;
+        private PreviewPieceRenderer previewRenderer = null!;
+        public SwapPiece swapPieceRenderer = null!;
         public int TickCountdown = 500;
 
+        private UserProfile currentAccount;
+        private SaveData saveData = ProfileManager.LoadData();
+        public MainWindow(UserProfile account)
+        {
+            InitializeComponent();
+
+            currentAccount = account;
+            StatusText.Text = $"Eingeloggt als: {currentAccount.Name} (Highscore: {currentAccount.Highscore})";
+
+            InitGameComponents();
+        }
+
+        // 2. Der leere Standard-Konstruktor als Sicherheit (falls WPF ihn sucht)
         public MainWindow()
         {
             InitializeComponent();
 
+            // Fallback: Wenn kein Account übergeben wurde, einen Gast erstellen
+            currentAccount = new UserProfile { Name = "Gast_Direktstart", Highscore = 0, IsGuest = true };
+            StatusText.Text = $"Eingeloggt als: {currentAccount.Name}";
+
+            InitGameComponents();
+        }
+
+        // Hilfsmethode, damit sich der Code nicht doppelt
+        private void InitGameComponents()
+        {
             game = new Game();
             renderer = new BoardRenderer(BoardPanel);
             swapPieceRenderer = new SwapPiece(BlockSwitch);
 
-            // Der WPF-Timer läuft auf dem UI-Thread. Hier sind keine Hintergrundthreads nötig.
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(TickCountdown);
             timer.Tick += Timer_Tick;
             previewRenderer = new PreviewPieceRenderer(PreviewPanel);
             RefreshView();
         }
+        
+
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
@@ -189,11 +214,27 @@ namespace Tetris
                 timer.Stop();
                 StartPauseButton.IsEnabled = false;
                 StepButton.IsEnabled = false;
-                StatusText.Text = "Game Over. Mit R oder Neu starten beginnt eine neue Runde.";
-            }
-            else
-            {
-                StartPauseButton.IsEnabled = true;
+
+                // Highscore prüfen und speichern
+                if (game.Score > currentAccount.Highscore)
+                {
+                    currentAccount.Highscore = game.Score;
+
+                    // In der Speicherdatei aktualisieren
+                    var saveData = ProfileManager.LoadData();
+                    var accToUpdate = saveData.Accounts.Find(a => a.Name == currentAccount.Name);
+                    if (accToUpdate != null)
+                    {
+                        accToUpdate.Highscore = currentAccount.Highscore;
+                        ProfileManager.SaveDataToFile(saveData);
+                    }
+
+                    StatusText.Text = $"Neuer Highscore! {game.Score} Punkte!";
+                }
+                else
+                {
+                    StatusText.Text = "Game Over. Mit R oder Neu starten beginnt eine neue Runde.";
+                }
             }
         }
 

@@ -1,0 +1,46 @@
+﻿<Window x:Class="Tetris.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tetris - Menü" Width="522" Height="507"
+        WindowStartupLocation="CenterScreen"
+        Background="#101827" Foreground="#E6EDF7"
+        FontFamily="Segoe UI" FontSize="15">
+
+
+
+
+
+    <Grid Margin="28,28,10,28">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="TETRIS MENÜ" FontSize="28" FontWeight="Bold" Foreground="#65E1CE" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <TextBlock Text="Account auswählen:" FontWeight="Bold" Foreground="#AABAD0" Margin="0,0,0,6"/>
+            <ComboBox x:Name="AccountComboBox" Height="35" Margin="0,0,0,16"/>
+
+            <Button Content="Spielen" Click="PlayButton_Click" Height="40" Background="#D7F9F2" Foreground="#102E2B" FontWeight="Bold" Margin="0,0,0,16"/>
+
+            <TextBlock Text="Oder neuen Account erstellen:" FontWeight="Bold" Foreground="#AABAD0" Margin="0,10,0,6"/>
+            <TextBox x:Name="NewAccountTextBox" Height="30" Margin="0,0,0,8" Padding="5"/>
+            <Button Content="Account erstellen &amp; auswählen" Click="CreateAccount_Click" Height="35" Background="#35455F" Foreground="#E6EDF7" Margin="0,0,0,8"/>
+            <Button Content="Als Gast spielen" Click="GuestButton_Click" Height="35" Background="#22304A" Foreground="#65E1CE"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" VerticalAlignment="Stretch">
+            <TextBlock Text="HIGHSCORES" FontWeight="Bold" Foreground="#65E1CE" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+            <Border Background="#0A111E" BorderBrush="#35455F" BorderThickness="2" CornerRadius="6" Padding="8" Height="360">
+                <ListView x:Name="ScoreboardList" Background="Transparent" Foreground="#E6EDF7" BorderThickness="0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="110"/>
+                            <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Highscore}" Width="60"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Window>
