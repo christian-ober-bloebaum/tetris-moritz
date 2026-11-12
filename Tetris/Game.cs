@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Printing;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Automation;
@@ -313,12 +314,14 @@ namespace Tetris
 
             if (linesclearedThisTurn > 0)
             {
-                if (lastClearedLines == linesclearedThisTurn)
+
+                if (lastClearedLines == -1 || lastClearedLines == linesclearedThisTurn)
                 {
                     Combo++;
                 }
                 else
                 {
+
                     Combo = 1;
                 }
 
@@ -326,6 +329,7 @@ namespace Tetris
                 {
                     Combo = MaxCombo;
                 }
+
                 int addedMoney = 0;
                 int addedScore = 0;
                 switch (linesclearedThisTurn)
@@ -346,15 +350,12 @@ namespace Tetris
                     case 2: addedMoney = Basemoney2 * Combo; break;
                     case 3: addedMoney = Basemoney3 * Combo; break;
                     case 4: addedMoney = Basemoney4 * Combo; break;
-
-
                 }
                 Money += addedMoney;
             }
             else
             {
-                Combo = 0;
-                lastClearedLines = -1;
+
             }
         }
         public void ScoreAmountNeeded()

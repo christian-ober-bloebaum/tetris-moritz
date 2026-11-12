@@ -21,7 +21,7 @@ Todo:
 -Da mehrere Modi 1Spieler / 2 Spieler gegen einander / Rougelike) Ein Startmenü)
 	-Auswahl zwischen den modi
 	-Anmelde Fenster
-	-
+	-2 tes spielefeld anlegen mit 2 grids wo das spiel jeweils drauf läuft
 
 	
 -wegen 2 spieler modi 2 vershciedene tasten eigabe systheme ( Controller wenn  ich heraus finden kann wie das geht).
@@ -30,14 +30,14 @@ Todo:
 -Rougelike Modus zusätzlich zum coop Modus
 -Rougelike Basics:
 -Ein Shop
--Ein Punktesysthem/Schwierrigkeitssysthem
+-Ein Punktesysthem/Schwierrigkeitssysthem -done-
 -Gegner die über zeit schwerer werden
--items die dich stärker machen um diese Gegner zu besiegen
+-items die dich stärker machen im shop kaufen können
 -Bosse
 -Skilltree
--Moneten/Geld
+-Moneten/Geld -done-
 -Animation (villeicht)
-
+-
 -Originale Ideen für den Modus:
 -Combos für mehr Damage oder Geld.
 -Mehr pieces machen und sie in gruppen unterteilen für Build Optionen mit items.
