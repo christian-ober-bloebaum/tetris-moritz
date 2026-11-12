@@ -26,16 +26,21 @@ namespace Tetris
         public int ActiveColumn { get; private set; }
         public int Combo { get; private set; } = 0;
 
+        public int Round { get; private set; } = 0;
         public int Score { get; private set; } = 0;
         public int LinesCleared { get; private set; } = 0;
         public bool IsGameOver { get; private set; } = false;
         public int[,] ExtraPieace { get; private set; } = new int[0, 0];
-        public int timereduce { get; private set; }
-
+        public int ScoreNeeded = 3000;
         private const int BaseScore1 = 100;
         private const int BaseScore2 = 300;
         private const int BaseScore3 = 500;
         private const int BaseScore4 = 800;
+        public int Money = 0;
+        public int Basemoney1 = 10;
+        public int Basemoney2 = 30;
+        public int Basemoney3 = 50;
+        public int Basemoney4 = 80;
 
         private List<int[,]> KnownPieces = new List<int[,]>
         {
@@ -224,6 +229,7 @@ namespace Tetris
             LockPiece();
             ClearFullRows();
             SpawnPiece();
+            ScoreAmountNeeded();
         }
 
         public void LockPiece()
@@ -320,7 +326,7 @@ namespace Tetris
                 {
                     Combo = MaxCombo;
                 }
-
+                int addedMoney = 0;
                 int addedScore = 0;
                 switch (linesclearedThisTurn)
                 {
@@ -333,6 +339,17 @@ namespace Tetris
 
                 Score += addedScore;
                 lastClearedLines = linesclearedThisTurn;
+
+                switch (linesclearedThisTurn)
+                {
+                    case 1: addedMoney = Basemoney1 * Combo; break;
+                    case 2: addedMoney = Basemoney2 * Combo; break;
+                    case 3: addedMoney = Basemoney3 * Combo; break;
+                    case 4: addedMoney = Basemoney4 * Combo; break;
+
+
+                }
+                Money += addedMoney;
             }
             else
             {
@@ -340,5 +357,17 @@ namespace Tetris
                 lastClearedLines = -1;
             }
         }
+        public void ScoreAmountNeeded()
+        {
+            if(Score >= ScoreNeeded)
+            {
+                Round ++;
+                Reset();
+                ScoreNeeded = ScoreNeeded * (Round + 1);
+            }
+
+
+        }
+
     }
 }

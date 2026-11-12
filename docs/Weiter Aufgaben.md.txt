@@ -2,7 +2,6 @@
 -Punkte	
 -Tick Timer verkürzt sich über zeit
 
-Todo:
 -Nutzerdate/Speichern
 	-Name
 	-Highscores
@@ -13,7 +12,7 @@ Todo:
 	-Hinzufügen von Accounts und auswählen von Accounts
 	-Bei hinzufügen Account direkt auswählen
 	-Letzten Account bei Start automatisch auswählen
-	
+Todo:
 -Gegen einander spielen
 	-2 Spielfelder nebeneinander
 	-Wen auf einer Seite reihen entfernt werden auf der anderen welche hinzu fügen

@@ -58,6 +58,23 @@ namespace Tetris
             }
         }
 
+        private void RougelikeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AccountComboBox.SelectedItem is UserProfile selectedAccount)
+            {
+                saveData.LastActiveAccountName = selectedAccount.Name;
+                ProfileManager.SaveDataToFile(saveData);
+
+                // Roguelike-Fenster öffnen und Account übergeben
+                RougelikeWindow roguelikeWindow = new RougelikeWindow(selectedAccount);
+                roguelikeWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Bitte wähle zuerst einen Account aus.");
+            }
+        }
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (AccountComboBox.SelectedItem is UserProfile selectedAccount)
