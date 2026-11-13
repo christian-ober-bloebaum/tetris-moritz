@@ -1,12 +1,59 @@
 ﻿<Window x:Class="Tetris.Shop"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tetris"
-        mc:Ignorable="d"
-        Title="Shop" Height="450" Width="800">
-    <Grid>
-        
+        Title="Tetris - Roguelike Modus"
+        Width="974" Height="958" MinWidth="700" MinHeight="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#101827" Foreground="#E6EDF7"
+        FontFamily="Segoe UI" FontSize="15"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        Deactivated="Window_Deactivated">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="14,9" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="Background" Value="#D7F9F2" />
+            <Setter Property="Foreground" Value="#102E2B" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="TETRIS · ROGUELIKE · STORE" FontSize="32" FontWeight="Bold" Foreground="#65E1CE" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="28">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition Width="250" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Rechte Spalte: Next-Button -->
+            <StackPanel Grid.Column="4">
+                <Button x:Name="NextButton" Content="Next" Click="StartPauseButton_Click" />
+            </StackPanel>
+
+            <!-- Mittlere Spalte: Überschrift & die 4 Shop-Items -->
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Items:" FontSize="20" FontWeight="Bold" Margin="0,0,0,12" Foreground="#65E1CE" />
+                <Button x:Name="ItemButton1" Content="Item 1" />
+                <Button x:Name="ItemButton2" Content="Item 2" />
+                <Button x:Name="ItemButton3" Content="Item 3" />
+                <Button x:Name="ItemButton4" Content="Item 4" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

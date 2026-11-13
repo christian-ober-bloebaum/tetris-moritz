@@ -26,6 +26,7 @@ namespace Tetris
         public int ActiveRow { get; private set; }
         public int ActiveColumn { get; private set; }
         public int Combo { get; private set; } = 0;
+        private int lastKnownRound = 0;
 
         public int Round { get; private set; } = 0;
         public int Score { get; private set; } = 0;
@@ -222,7 +223,11 @@ namespace Tetris
             }
             return true;
         }
+        private void ShopIfPointsReached()
+        {
 
+
+        }
         public void Tick()
         {
             if (TryMove(0, 1))
@@ -360,9 +365,9 @@ namespace Tetris
         }
         public void ScoreAmountNeeded()
         {
-            if(Score >= ScoreNeeded)
+            if (Score >= ScoreNeeded)
             {
-                Round ++;
+                Round++;
                 Reset();
                 ScoreNeeded = ScoreNeeded * (Round + 1);
             }
@@ -370,5 +375,6 @@ namespace Tetris
 
         }
 
+        
     }
 }

@@ -17,6 +17,7 @@ namespace Tetris
         public int TickCountdown = 500;
         public int TimeMult = 10;
         public int MaxTickCount = 500;
+        private int lastKnownRound = 0;
 
 
         private UserProfile currentAccount;
@@ -184,7 +185,25 @@ namespace Tetris
 
             RefreshView();
         }
+        private void OpenShopWindow()
+        {
+            // Spiel anhalten, während der Shop offen ist
+            if (timer.IsEnabled)
+            {
+                timer.Stop();
+            }
 
+            // Shop-Fenster öffnen
+            Shop shopWindow = new Shop();
+
+            // (Optional) Wenn du den Account oder das Geld übergeben möchtest, 
+            // könntest du das hier tun. Für den Moment öffnet es sich einfach:
+
+            shopWindow.ShowDialog(); // ShowDialog blockiert das Hauptfenster, bis der Shop geschlossen wird
+
+            // Wenn der Shop geschlossen wird, läuft das Spiel weiter
+            timer.Start();
+        }
         private void RefreshView()
         {
             renderer.Draw(game);
@@ -199,7 +218,11 @@ namespace Tetris
             TickText.Text = "Spieltakte: " + tickCount;
             LinesText.Text = "Entfernte Reihen: " + game.LinesCleared;
             ScoreTracker.Text = game.Score.ToString();
-
+            if (game.Round > lastKnownRound)
+            {
+                lastKnownRound = game.Round;
+                OpenShopWindow();
+            }
             int newInterval = Math.Max(150, TickCountdown - ((game.PiecesSpawned - 1) * TimeMult));
             timer.Interval = TimeSpan.FromMilliseconds(newInterval);
            
@@ -243,5 +266,6 @@ namespace Tetris
             timer.Stop();
             base.OnClosed(e);
         }
+
     }
 }
